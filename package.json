@@ -1,0 +1,24 @@
+{
+  "name": "tugas1-if4020",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reynull20/Tugas1-IF4020.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/reynull20/Tugas1-IF4020/issues"
+  },
+  "homepage": "https://github.com/reynull20/Tugas1-IF4020#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

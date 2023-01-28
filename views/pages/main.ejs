@@ -15,7 +15,10 @@
   <%- include('../partials/cyphertype'); %>
 
   <!-- Placeholder -->
-  <%- include('../partials/caesarform'); %>
+  <% if (crypt == "viginere") { %>
+  <%- include('../partials/viginereForm'); %>
+  <% } else if (crypt == "varian viginere") {%>
+  <% } %>
 </main>
 
 <footer>

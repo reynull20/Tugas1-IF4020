@@ -1,3 +1,0 @@
-function changetype(plainteks, cypherteks) {
-    
-}

@@ -29,7 +29,7 @@ $("#decryptBtn").on("click", function (event) {
 
     // Request Decryption
     var encryptType = $('.active').attr('id');    
-    $.post("/encrypt", {
+    $.post("/decrypt", {
         cipherteks: $("#cyphertextString").val(),
         key: $("#keyStringDec").val(),
         type: encryptType
@@ -37,7 +37,7 @@ $("#decryptBtn").on("click", function (event) {
     function (data, status) {
         cipher = JSON.parse(data)
         $('#plaintextString')
-            .val(cipher.cipherteks)
+            .val(cipher.plainteks)
             .css({
                 "background-color": "rgb(237, 238, 255)"
             });

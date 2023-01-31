@@ -1,6 +1,7 @@
 var express = require('express');
 var path = require('path');
 const vigenere = require('./ciphertools/vigenere');
+const autokey = require('./ciphertools/autokey');
 
 var app = new express();
 var port = 3000;
@@ -33,6 +34,8 @@ app.post('/encrypt', function(req, res) {
 
     if (ciphertype == 'vigenere') {
         cipherteks = vigenere.encrypt(plainteks,key);
+    } else if (ciphertype == 'auto-key vigenere') {
+        cipherteks = autokey.encrypt(plainteks,key);
     }
     
     response = {
@@ -41,16 +44,19 @@ app.post('/encrypt', function(req, res) {
     return res.send(JSON.stringify(response));
 });
 
-app.post('/encrypt', function(req, res) {
+app.post('/decrypt', function(req, res) {
     var ciphertype = req.body.type;
     var cipherteks = req.body.cipherteks;
     var key = req.body.key;
     var plainteks = "Hasn't been implemented"
 
     if (ciphertype == 'vigenere') {
-        plainteks = vigenere.encrypt(plainteks,key);
+        plainteks = vigenere.decrypt(cipherteks,key);
+    } else if (ciphertype == 'auto-key vigenere') {
+        plainteks = autokey.decrypt(cipherteks,key);
     }
     
+    console.log(plainteks);
     response = {
         plainteks: plainteks
     };

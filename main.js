@@ -1,10 +1,23 @@
 var express = require('express');
 var path = require('path');
+var multer = require('multer');
+
 const vigenere = require('./ciphertools/vigenere');
 const autokey = require('./ciphertools/autokey');
+const { urlencoded } = require('express');
 
 var app = new express();
 var port = 3000;
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "uploaded");
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname);
+    }
+})
+const upload = multer({ storage: storage });
 
 app.set('view engine', 'ejs');
 
@@ -12,7 +25,7 @@ app.use('/css', express.static(path.join(__dirname, 'node_modules/bootstrap/dist
 app.use('/js', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')));
 app.use('/jQuery', express.static(path.join(__dirname, 'node_modules/jquery/dist')));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.urlencoded())
+app.use(express.urlencoded({extended: true}));
 
 app.listen(port, function (err) {
     if (typeof(err) == "undefined") {
@@ -62,3 +75,10 @@ app.post('/decrypt', function(req, res) {
     };
     return res.send(JSON.stringify(response));
 });
+
+app.post('/encryptFile', upload.array("files"),function (req,res) {
+    // console.log(req.body);
+    console.log(req.files[0].originalname);
+    
+    res.json({ message: "Succesfully upload files" });
+})

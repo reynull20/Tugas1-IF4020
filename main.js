@@ -4,6 +4,10 @@ var multer = require('multer');
 
 const vigenere = require('./ciphertools/vigenere');
 const autokey = require('./ciphertools/autokey');
+const affine = require('./ciphertools/affine');
+const hill = require('./ciphertools/hill');
+const playfair = require('./ciphertools/playfair');
+const extended = require('./ciphertools/extended');
 const { urlencoded } = require('express');
 
 var app = new express();
@@ -49,6 +53,12 @@ app.post('/encrypt', function(req, res) {
         cipherteks = vigenere.encrypt(plainteks,key);
     } else if (ciphertype == 'auto-key vigenere') {
         cipherteks = autokey.encrypt(plainteks,key);
+    } else if (ciphertype == 'affine') {
+        cipherteks = affine.encrypt(cipherteks,key.a,key.b);
+    } else if (ciphertype == 'hill') {
+        cipherteks = hill.encrypt(cipherteks,key);
+    } else if (ciphertype == 'playfair') {
+        cipherteks = playfair.encrypt(cipherteks,key);
     }
     
     response = {
@@ -67,9 +77,14 @@ app.post('/decrypt', function(req, res) {
         plainteks = vigenere.decrypt(cipherteks,key);
     } else if (ciphertype == 'auto-key vigenere') {
         plainteks = autokey.decrypt(cipherteks,key);
+    } else if (ciphertype == 'affine') {
+        plainteks = affine.decrypt(cipherteks,key.a,key.b);
+    } else if (ciphertype == 'hill') {
+        plainteks = hill.decrypt(cipherteks,key);
+    } else if (ciphertype == 'playfair') {
+        plainteks = playfair.decrypt(cipherteks,key);
     }
     
-    console.log(plainteks);
     response = {
         plainteks: plainteks
     };
@@ -77,8 +92,7 @@ app.post('/decrypt', function(req, res) {
 });
 
 app.post('/encryptFile', upload.array("files"),function (req,res) {
-    // console.log(req.body);
-    console.log(req.files[0].originalname);
-    
+    extended.encrypt(req.body.key);
+    // Send encrypted File : Code Goes Here
     res.json({ message: "Succesfully upload files" });
 })

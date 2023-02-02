@@ -49,16 +49,17 @@ app.post('/encrypt', function(req, res) {
     var key = req.body.key;
     var cipherteks = "Hasn't been implemented"
 
-    if (ciphertype == 'vigenere') {
+    if (ciphertype === 'vigenere') {
         cipherteks = vigenere.encrypt(plainteks,key);
-    } else if (ciphertype == 'auto-key vigenere') {
+    } else if (ciphertype === 'auto-key vigenere') {
         cipherteks = autokey.encrypt(plainteks,key);
-    } else if (ciphertype == 'affine') {
-        cipherteks = affine.encrypt(cipherteks,key.a,key.b);
-    } else if (ciphertype == 'hill') {
-        cipherteks = hill.encrypt(cipherteks,key);
-    } else if (ciphertype == 'playfair') {
-        cipherteks = playfair.encrypt(cipherteks,key);
+    } else if (ciphertype === 'affine') {
+        key = key.split(',');
+        cipherteks = affine.encrypt(plainteks,parseInt(key[0]),parseInt(key[1]));
+    } else if (ciphertype === 'hill') {
+        cipherteks = hill.encrypt(plainteks,key);
+    } else if (ciphertype === 'playfair') {
+        cipherteks = playfair.encrypt(plainteks,key);
     }
     
     response = {
@@ -78,7 +79,8 @@ app.post('/decrypt', function(req, res) {
     } else if (ciphertype == 'auto-key vigenere') {
         plainteks = autokey.decrypt(cipherteks,key);
     } else if (ciphertype == 'affine') {
-        plainteks = affine.decrypt(cipherteks,key.a,key.b);
+        key = key.split(',');
+        plainteks = affine.decrypt(cipherteks,parseInt(key[0]),parseInt(key[1]));
     } else if (ciphertype == 'hill') {
         plainteks = hill.decrypt(cipherteks,key);
     } else if (ciphertype == 'playfair') {

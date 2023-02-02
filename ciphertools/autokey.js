@@ -7,16 +7,17 @@ exports.encrypt = function (plainteks, key) {
 
     var newKey = "";
     if (key.length < plainteks.length) {
-        newKey = key.concat(plainteks);
+        newKey = key + plainteks;
     } else {
         newKey = key;
     }
 
     let cipherteks = "";
     for (let i = 0; i < plainteks.length; i++) {
-        let delta = (cipherteks.charCodeAt(i) + newKey.charCodeAt(i)) %26;
+        let delta = (plainteks.charCodeAt(i) + newKey.charCodeAt(i)) % 26;
         cipherteks += String.fromCharCode(delta+'A'.charCodeAt(0));
     }
+    console.log(cipherteks);
 
     return cipherteks;
 }
@@ -35,7 +36,7 @@ exports.decrypt = function (cipherteks, key) {
     }
 
     if (key.length < cipherteks.length) {
-        for (let i = (key.length-1); i < cipherteks.length; i++) {
+        for (let i = key.length; i < cipherteks.length; i++) {
             let delta = (cipherteks.charCodeAt(i) - plainteks.charCodeAt(i - key.length) + 26) %26;
             plainteks += String.fromCharCode(delta+'A'.charCodeAt(0));
         }

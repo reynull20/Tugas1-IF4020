@@ -1,3 +1,21 @@
+$('#encryptFile').on("change", function (e) {
+    var fr = new FileReader();
+    fr.onload = function () {
+        $('#plaintextString').val(fr.result);
+    }
+
+    fr.readAsText(this.files[0]);
+})
+
+$('#decryptFile').on("change", function (e) {
+    var fr = new FileReader();
+    fr.onload = function () {
+        $('#cyphertextString').val(fr.result);
+    }
+
+    fr.readAsText(this.files[0]);
+})
+
 $("#uploadFileEncrypt").on("click", function (event) {
     event.preventDefault();
     var fd = new FormData();

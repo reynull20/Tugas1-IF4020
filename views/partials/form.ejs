@@ -6,9 +6,9 @@
             <label for="keyString" class="form-label">Key</label>
             <input type="text" class="form-control" id="keyStringEnc">
         </div>
-        <div>
-            <input type="file" name="File" id="encryptFile" class="custom-file-input">
-            <button id="uploadFileEncrypt" type="button" class="btn btn-lg btn-danger mt-3">Upload</button>
+        <div id="encSubmit">
+            <input type="file" name="File" id="encryptFile" class="custom-file-input" accept="text/plain">
+            <!-- <button id="uploadFileEncrypt" type="button" class="btn btn-lg btn-danger mt-3">Upload</button> -->
             <button id="encryptBtn" type="button" class="btn btn-lg btn-danger mt-3">Encrypt</button>
         </div>
     </div>
@@ -22,6 +22,9 @@
             <label for="keyString" class="form-label">Key</label>
             <input type="text" class="form-control" id="keyStringDec">
         </div>
-        <button id="decryptBtn" type="button" class="btn btn-lg btn-danger mt-3">Decrypt</button>
+        <div id="decSubmit">
+            <input type="file" name="File" id="decryptFile" class="custom-file-input" accept="text/plain">
+            <button id="decryptBtn" type="button" class="btn btn-lg btn-danger mt-3">Decrypt</button>
+        </div>
     </div>
 </div>

@@ -1,4 +1,5 @@
 const e = require('express');
+const { sqrt } = require('mathjs');
 const math = require('mathjs');
 
 exports.encrypt = function (plainteks, key) {
@@ -12,6 +13,11 @@ exports.encrypt = function (plainteks, key) {
         let seq = plainteks.slice(i,i+math.size(newKey)[0]);
         seq = seq.split('');
         seq = seq.map(e => e.charCodeAt(0) - 'A'.charCodeAt(0));
+        if(seq.length < newkey.length){
+            while (seq.length < newkey.length) {
+                seq.push('Z'.charCodeAt(0) - 'A'.charCodeAt(0))   
+            }
+        }
         let res = math.multiply(newKey,seq);
 
         res.forEach(element => {
@@ -28,13 +34,18 @@ exports.decrypt = function (cipherteks, key) {
 
     cipherteks = cipherteks.toUpperCase();
     cipherteks = cipherteks.replace(/[^A-Z]/gm, '');
-    console.log(newkey);
 
     let plainteks = "";
     for (let i = 0; i < cipherteks.length; i += math.size(newkey)[0]) {
         let seq = cipherteks.slice(i,i+math.size(newkey)[0]);
         seq = seq.split('');
         seq = seq.map(e => e.charCodeAt(0) - 'A'.charCodeAt(0));
+        if(seq.length < newkey.length){
+            while (seq.length < newkey.length) {
+                seq.push('Z'.charCodeAt(0) - 'A'.charCodeAt(0))   
+            }
+        }
+        console.log(seq);
         let res = math.multiply(newkey,seq);
 
         res.forEach(element => {
@@ -65,5 +76,7 @@ function matInv(key) {
     let inverseKey = math.multiply(math.inv(key), (detKey * invKeyDet));
     inverseKey = math.round(inverseKey);
     inverseKey = math.mod(inverseKey,26);
+    console.log(inverseKey);
+
     return inverseKey;
 }

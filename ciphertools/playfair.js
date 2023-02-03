@@ -16,7 +16,7 @@ exports.encrypt = function (plainteks, key) {
     for (let i = 0; i < plainteks.length; i += 2) {
         let pos = search(newKey,plainteks[i],plainteks[i+1],temp);
         let n1 = pos[0]; let n2 = pos[1];
-        let n3 = pos[2]; let n4 = pos[4];
+        let n3 = pos[2]; let n4 = pos[3];
         if (n1 == n3) {
             cipherteks[i] = newKey[n1*5+((n2+1) % 5)];
             cipherteks[i+1] = newKey[n3*5+((n4+1) % 5)];
@@ -27,9 +27,10 @@ exports.encrypt = function (plainteks, key) {
             cipherteks[i] = newKey[n1*5+(n4 % 5)];
             cipherteks[i+1] = newKey[n3*5+(n2 % 5)];
         }
+
     }
 
-    return cipherteks.toString();
+    return cipherteks.toString().replaceAll(',','');
 }
 
 exports.decrypt = function (cipherteks, key) {
@@ -46,7 +47,7 @@ exports.decrypt = function (cipherteks, key) {
     for (let i = 0; i < cipherteks.length; i += 2) {
         let pos = search(newKey,cipherteks[i],cipherteks[i+1],temp);
         let n1 = pos[0]; let n2 = pos[1];
-        let n3 = pos[2]; let n4 = pos[4];
+        let n3 = pos[2]; let n4 = pos[3];
         if (n1 == n3) {
             plainteks[i] = newKey[n1*5+((n2+4) % 5)];
             plainteks[i+1] = newKey[n3*5+((n4+4) % 5)];
@@ -59,7 +60,8 @@ exports.decrypt = function (cipherteks, key) {
         }
     }
 
-    return plainteks.toString();
+    
+    return plainteks.toString().replaceAll(',','');
 }
 
 function unique(text) {
@@ -80,12 +82,12 @@ function search(key, a, b, arr) {
     else if (b == 'j') b = 'i'
 
     idxA = key.indexOf(a);
-    arr[1] = idx % 5;
-    arr[0] = (idx / 5) | 0;
+    arr[1] = idxA % 5;
+    arr[0] = (idxA / 5) | 0;
 
     idxB = key.indexOf(b);
-    arr[2] = (idx / 5) | 0;
-    arr[3] = idx % 5;
+    arr[2] = (idxB / 5) | 0;
+    arr[3] = idxB % 5;
 
     return arr;
 }

@@ -35,3 +35,37 @@ $("#uploadFileEncrypt").on("click", function (event) {
         }
     })
 })
+
+async function getNewFileHandle() {
+    const options = {
+        startIn: 'downloads',
+        types: [
+            {
+                description: 'Text Files',
+                accept: {
+                    'text/plain':['.txt'],
+                }
+            }
+        ]
+    }
+    const handle = await window.showSaveFilePicker(options)
+    return handle;
+}
+
+async function writeFile(fileHandle, contents) {
+    const writable = await fileHandle.createWritable();
+    await writable.write(contents)
+    await writable.close()
+}
+
+$("#save-encryption").on("click", async function(event) {
+    const content = $("#plaintextString").val()
+    const handle = await getNewFileHandle();
+    const write = writeFile(handle,content)
+})
+
+$("#save-decryption").on("click", async function(event) {
+    const content = $("#cyphertextString").val()
+    const handle = await getNewFileHandle();
+    const write = writeFile(handle,content)
+})

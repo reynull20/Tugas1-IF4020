@@ -52,21 +52,25 @@ $(".btn-primary").on("click", function (event) {
             <input type="file" name="File" id="encryptFile" class="custom-file-input">
             <button id="uploadFileEncrypt" type="button" class="btn btn-lg btn-danger mt-3">Upload</button>
             <button id="encryptBtn" type="button" class="btn btn-lg btn-danger mt-3">Encrypt</button>
+            <button id="save-encryption" type="button" class="btn btn-lg btn-danger mt-3">Save to File</button>
         `);
         $('#decSubmit').html(`
             <input type="file" name="File" id="decryptFile" class="custom-file-input">
             <button id="uploadFileDecrypt" type="button" class="btn btn-lg btn-danger mt-3">Upload</button>
             <button id="DecryptBtn" type="button" class="btn btn-lg btn-danger mt-3">Decrypt</button>
+            <button id="save-decryption" type="button" class="btn btn-lg btn-danger mt-3">Save to File</button>
         `);
         $('#plaintextString').val('');
     } else if (prev.attr('id') === 'extended vigenere') {
         $('#encSubmit').html(`
             <input type="file" name="File" id="encryptFile" class="custom-file-input" accept="text/plain">
             <button id="encryptBtn" type="button" class="btn btn-lg btn-danger mt-3">Encrypt</button>
+            <button id="save-encryption" type="button" class="btn btn-lg btn-danger mt-3">Save to File</button>
         `);
         $('#decSubmit').html(`
             <input type="file" name="File" id="decryptFile" class="custom-file-input" accept="text/plain">
             <button id="DecryptBtn" type="button" class="btn btn-lg btn-danger mt-3">Decrypt</button>
+            <button id="save-decryption" type="button" class="btn btn-lg btn-danger mt-3">Save to File</button>
         `);
         $('#encryptFile').attr('accept','text/plain');
     }
